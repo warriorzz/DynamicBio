@@ -1,0 +1,10 @@
+# intelliJ related stuff
+.idea/
+
+# gradle
+build/
+.gradle/
+*.jar
+
+# more stuff
+.env
