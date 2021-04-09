@@ -33,5 +33,3 @@ object Database {
         biographieCollection = database.getCollection()
     }
 }
-
-val databaseScope = CoroutineScope(Dispatchers.IO)
