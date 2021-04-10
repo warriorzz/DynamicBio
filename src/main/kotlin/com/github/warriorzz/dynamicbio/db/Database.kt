@@ -32,7 +32,9 @@ object Database {
         database = client.getDatabase(Config.DATABASE_NAME)
         biographieCollection = database.getCollection()
         databaseScope.launch {
-            biographieCollection.insertOne(Biographie("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+            if (biographieCollection.find().toList().isEmpty()) {
+                biographieCollection.insertOne(Biographie("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+            }
         }
     }
 }
