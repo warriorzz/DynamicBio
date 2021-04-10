@@ -22,7 +22,7 @@ object Database {
         client = KMongo.createClient(
             MongoClientSettings.builder()
                 .uuidRepresentation(UuidRepresentation.STANDARD)
-                .applyConnectionString(ConnectionString("mongodb+srv://${Config.DATABASE_USER}:${Config.DATABASE_PASSWORD}@${Config.DATABASE_HOST}/${Config.DATABASE_NAME}?retryWrites=true&w=majority"))
+                .applyConnectionString(ConnectionString("mongodb://${Config.DATABASE_USER}:${Config.DATABASE_PASSWORD}@${Config.DATABASE_HOST}/${Config.DATABASE_NAME}?retryWrites=true&w=majority"))
                 .build()
         ).coroutine
 
