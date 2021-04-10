@@ -1,0 +1,39 @@
+version: '3'
+services:
+  backend:
+    env_file:
+      - .env
+    build: .
+    restart: unless-stopped
+    container_name: dynamic_bio
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_USERNAME=databaseuserlol
+      - MONGO_PASSWORD=databaseuserlol
+      - MONGO_DATABASE=database
+      - OAUTH_ACCESS_TOKEN=
+      - OAUTH_ACCESS_SECRET=
+      - CONSUMER_ACCESS_TOKEN=
+      - CONSUMER_ACCESS_SECRET=
+    networks:
+      - app
+
+  mongo:
+    image: mongo
+    container_name: dynamic_bio_database
+    environment:
+      - MONGO_INITDB_DATABASE=database
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - dynamic_bio:/data/db
+    networks:
+      - app
+
+volumes:
+  sz_data:
+
+networks:
+  app:
