@@ -16,7 +16,8 @@ object OAuth {
     private val parameters = HashMap<String, String>()
     private var method: HttpMethod = HttpMethod.Post
     private var url = ""
-    private var signingKey = "${Config.CONSUMER_ACCESS_SECRET.percentEncode()}&${Config.OAUTH_ACCESS_SECRET.percentEncode()}"
+    private var signingKey =
+        "${Config.CONSUMER_ACCESS_SECRET.percentEncode()}&${Config.OAUTH_ACCESS_SECRET.percentEncode()}"
 
     operator fun invoke() {
         parameters["oauth_version"] = "1.0"

@@ -19,7 +19,7 @@ private val dotenv = dotenv {
     ignoreIfMissing = true
 }
 
-fun byEnv(property: String, default: String = "") : String {
+fun byEnv(property: String, default: String = ""): String {
     if (dotenv[property] != null) {
         return dotenv[property]
     }

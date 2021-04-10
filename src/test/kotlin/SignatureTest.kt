@@ -1,4 +1,3 @@
-import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.utils.OAuth
 import com.github.warriorzz.dynamicbio.utils.percentEncode
 import io.ktor.http.*

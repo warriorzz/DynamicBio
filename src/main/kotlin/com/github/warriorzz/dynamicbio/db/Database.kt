@@ -4,9 +4,6 @@ import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.model.Biographie
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
-import io.github.cdimascio.dotenv.DotenvBuilder
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import org.bson.UuidRepresentation
 import org.litote.kmongo.coroutine.CoroutineClient
 import org.litote.kmongo.coroutine.CoroutineCollection
