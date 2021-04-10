@@ -4,6 +4,9 @@ import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.model.Biographie
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.bson.UuidRepresentation
 import org.litote.kmongo.coroutine.CoroutineClient
 import org.litote.kmongo.coroutine.CoroutineCollection
@@ -28,5 +31,10 @@ object Database {
 
         database = client.getDatabase(Config.DATABASE_NAME)
         biographieCollection = database.getCollection()
+        databaseScope.launch {
+            biographieCollection.insertOne(Biographie("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+        }
     }
 }
+
+val databaseScope = CoroutineScope(Dispatchers.IO)
