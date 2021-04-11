@@ -26,9 +26,7 @@ object DynamicBio {
     }
 
     suspend operator fun invoke() {
-        if (initialized) {
-            throw RuntimeException("Cannot initialize DynamicBio twice!")
-        }
+        require(!initialized) { "Cannot initialize DynamicBio twice!" }
         val kronScheduler = buildSchedule {
             minutes {
                 0 every 15
