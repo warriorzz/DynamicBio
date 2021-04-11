@@ -1,7 +1,7 @@
 package com.github.warriorzz.dynamicbio
 
 import com.github.warriorzz.dynamicbio.model.TwitterResponse
-import com.github.warriorzz.dynamicbio.utils.BiographieProvider
+import com.github.warriorzz.dynamicbio.utils.BiographyProvider
 import com.github.warriorzz.dynamicbio.utils.OAuth
 import dev.inmo.krontab.builder.buildSchedule
 import dev.inmo.krontab.doInfinity
@@ -40,7 +40,7 @@ object DynamicBio {
     }
 
     private suspend fun updateBio() {
-        val bio = BiographieProvider.getNextBio()
+        val bio = BiographyProvider.getNextBio()
 
         val response: TwitterResponse = httpClient.post("https://api.twitter.com/1.1/account/update_profile.json") {
             parameter("description", bio.description)

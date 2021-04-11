@@ -1,7 +1,7 @@
 package com.github.warriorzz.dynamicbio.db
 
 import com.github.warriorzz.dynamicbio.config.Config
-import com.github.warriorzz.dynamicbio.model.Biographie
+import com.github.warriorzz.dynamicbio.model.Biography
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +18,7 @@ object Database {
     private lateinit var client: CoroutineClient
     lateinit var database: CoroutineDatabase
         private set
-    lateinit var biographieCollection: CoroutineCollection<Biographie>
+    lateinit var biographieCollection: CoroutineCollection<Biography>
         private set
 
     operator fun invoke() {
@@ -33,7 +33,7 @@ object Database {
         biographieCollection = database.getCollection()
         databaseScope.launch {
             if (biographieCollection.find().toList().isEmpty()) {
-                biographieCollection.insertOne(Biographie("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+                biographieCollection.insertOne(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
             }
         }
     }
