@@ -27,12 +27,11 @@ object DynamicBio {
 
     suspend operator fun invoke() {
         require(!initialized) { "Cannot initialize DynamicBio twice!" }
-        val kronScheduler = buildSchedule {
+        buildSchedule {
             minutes {
                 0 every 15
             }
-        }
-        kronScheduler.doInfinity {
+        }.doInfinity {
             updateBio()
         }
     }
@@ -40,7 +39,7 @@ object DynamicBio {
     private suspend fun updateBio() {
         val bio = BiographyProvider.getNextBio()
 
-        val response: TwitterResponse = httpClient.post("https://api.twitter.com/1.1/account/update_profile.json") {
+        httpClient.post<TwitterResponse>("https://api.twitter.com/1.1/account/update_profile.json") {
             parameter("description", bio.description)
             parameter("url", bio.url)
             parameter("location", bio.location)
@@ -53,7 +52,7 @@ object DynamicBio {
                             "url" to bio.url,
                             "location" to bio.location
                         )
-                    ).header()
+                    ).authenticationHeaders()
             )
         }
         // maybe do some stuff with response
