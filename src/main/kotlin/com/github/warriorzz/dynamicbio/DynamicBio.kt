@@ -11,10 +11,12 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import mu.KotlinLogging
 
 object DynamicBio {
 
     private var initialized = false
+    val logger = KotlinLogging.logger {}
 
     private val httpClient = HttpClient(OkHttp) {
         install(JsonFeature) {
@@ -55,6 +57,8 @@ object DynamicBio {
                     ).authenticationHeaders()
             )
         }
+        logger.error { "Bio successfully updated!" }
+
         // maybe do some stuff with response
     }
 }
