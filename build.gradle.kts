@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     maven("https://dl.bintray.com/insanusmokrassar/InsanusMokrassar")
+    maven("https://dl.bintray.com/korlibs/korlibs")
 }
 
 dependencies {
