@@ -1,14 +1,14 @@
 FROM adoptopenjdk/openjdk15-openj9 as builder
 
-COPY . .
+WORKDIR /user/app
+
+COPY . /user/app
 
 RUN chmod +x ./gradlew
 
 RUN ./gradlew --no-daemon installDist
 
 FROM adoptopenjdk/openjdk15-openj9
-
-WORKDIR /user/app
 
 COPY --from=builder build/install/DynamicBio ./
 
