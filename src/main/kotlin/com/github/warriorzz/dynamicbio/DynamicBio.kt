@@ -30,8 +30,8 @@ object DynamicBio {
     suspend operator fun invoke() {
         require(!initialized) { "Cannot initialize DynamicBio twice!" }
         buildSchedule {
-            minutes {
-                0 every 15
+            hours {
+                0 every 1
             }
         }.doInfinity {
             updateBio()
