@@ -33,7 +33,7 @@ services:
       - app
 
 volumes:
-  sz_data:
+  dynamic_bio:
 
 networks:
   app:
