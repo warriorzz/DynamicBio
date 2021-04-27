@@ -1,0 +1,24 @@
+name: Docker image build and push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Publish Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build & Tag
+        run:  docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:latest .
+      - name: Push latest
+        run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
+      - name: Push specific tag
+        run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"

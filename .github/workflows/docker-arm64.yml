@@ -1,0 +1,40 @@
+name: Docker image build and push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Publish Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: Prepare
+        if: success()
+        id: prepare
+        run: |
+          echo ::set-output name=docker_platform::linux/arm/v7
+          echo ::set-output name=docker_image::${{ secrets.DOCKER_USER }}/dynamicbio
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: Run Buildx (push image)
+        if: success()
+        run: |
+          docker buildx build \
+          --platform ${{ steps.prepare.outputs.docker_platform }} \
+          --tag ${{ steps.prepare.outputs.docker_image }}:latest \
+          --file ./Dockerfile \
+          --output type=image,push=true .
