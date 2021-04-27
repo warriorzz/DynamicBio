@@ -30,8 +30,8 @@ object DynamicBio {
             throw RuntimeException("Cannot initialize DynamicBio twice!")
         }
         val kronScheduler = buildSchedule {
-            minutes {
-                0 every 15
+            hours {
+                0 every 1
             }
         }
         kronScheduler.doInfinity {
