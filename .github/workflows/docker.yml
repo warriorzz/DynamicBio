@@ -22,3 +22,25 @@ jobs:
         run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
       - name: Push specific tag
         run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: Prepare
+        if: success()
+        id: prepare
+        run: |
+          echo ::set-output name=docker_platform::linux/arm/v7
+          echo ::set-output name=docker_image::${{ secrets.DOCKER_USER }}/dynamicbio
+      - name: Set up Docker Buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          version: latest
+      - name: Run Buildx (push image)
+        if: success()
+        run: |
+          docker buildx build \
+          --platform ${{ steps.prepare.outputs.docker_platform }} \
+          --tag ${{ steps.prepare.outputs.docker_image }}:latest \
+          --file ./Dockerfile \
+          --output type=image,push=true .
