@@ -38,3 +38,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest
       - name: Push specific tag
         run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA"
+      - name: Remove image
+        run: docker image rm ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest --force
+      - name: Remove specific tag image
+        run: ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" --force
