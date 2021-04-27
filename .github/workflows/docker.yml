@@ -22,10 +22,6 @@ jobs:
         run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
       - name: Push specific tag
         run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
-      - name: Set up Docker Buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
-        with:
-          version: latest
       - name: Prepare
         if: success()
         id: prepare
@@ -35,7 +31,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
-          version: latest
+          buildx-version: latest
       - name: Run Buildx (push image)
         if: success()
         run: |
