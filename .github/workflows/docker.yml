@@ -42,3 +42,5 @@ jobs:
         run: docker image rm ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest --force
       - name: Remove specific tag image
         run: ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" --force
+      - name: Prune images
+        run: docker image prune -f
