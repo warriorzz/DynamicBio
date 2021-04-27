@@ -9,7 +9,6 @@ import java.time.Instant
 import java.util.*
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import kotlin.collections.HashMap
 
 object OAuth {
 
@@ -43,7 +42,7 @@ object OAuth {
         return this
     }
 
-    fun header(): String {
+    fun authenticationHeaders(): String {
         parameters["oauth_timestamp"] = Instant.now().epochSecond.toString()
         parameters["oauth_nonce"] = randomString()
         parameters["oauth_signature"] = getSignature() ?: return ""

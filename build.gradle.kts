@@ -9,7 +9,8 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    jcenter()
+    maven("https://dl.bintray.com/insanusmokrassar/InsanusMokrassar")
+    maven("https://dl.bintray.com/korlibs/korlibs")
 }
 
 dependencies {
@@ -20,6 +21,7 @@ dependencies {
     implementation("dev.inmo", "krontab", "0.5.0")
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.3")
     api("org.litote.kmongo", "kmongo-coroutine-serialization", "4.2.3")
+    implementation("io.github.microutils", "kotlin-logging", "1.12.5")
     implementation("org.slf4j:slf4j-jdk14:1.7.9")
 
     val junitVersion = "5.6.0"
