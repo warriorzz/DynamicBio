@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: Publish Docker image
+    name: Build & Publish Docker image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,20 +16,25 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - name: Prepare
-        if: success()
-        id: prepare
-        run: |
-          echo ::set-output name=docker_platform::linux/arm/v7
-          echo ::set-output name=docker_image::${{ secrets.DOCKER_USER }}/dynamicbio
-      - name: Set up Docker Buildx
-        uses: crazy-max/ghaction-docker-buildx@v1
-        with:
-          buildx-version: latest
-      - name: Run Buildx (push image)
-        if: success()
-        run: docker buildx build --platform linux/arm64,linux/amd64 --tag ${{ secrets.DOCKER_USER }}/dynamicbio:latest --file ./Dockerfile .
+      - name: Build & Tag
+        run:  docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:latest .
       - name: Push latest
-        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
+        run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
       - name: Push specific tag
-        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
+        run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
+  build-arm64:
+    name: Build & Publish arm64 Docker image
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build & Tag
+        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest .
+      - name: Push latest
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest
+      - name: Push specific tag
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA"
