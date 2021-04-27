@@ -16,12 +16,6 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - name: Build & Tag
-        run:  docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:latest .
-      - name: Push latest
-        run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
-      - name: Push specific tag
-        run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
       - name: Prepare
         if: success()
         id: prepare
@@ -34,4 +28,8 @@ jobs:
           buildx-version: latest
       - name: Run Buildx (push image)
         if: success()
-        run: docker buildx build --platform linux/arm64 --tag ${{ secrets.DOCKER_USER }}/dynamicbio:latest .
+        run: docker buildx build --platform linux/arm64,linux/amd64 --tag ${{ secrets.DOCKER_USER }}/dynamicbio:latest .
+      - name: Push latest
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
+      - name: Push specific tag
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
