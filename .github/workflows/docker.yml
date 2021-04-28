@@ -40,5 +40,7 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA"
       - name: Remove image
         run: docker image rm ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest --force
+      - name: Prune containers
+        run: docker container prune -a -f
       - name: Prune images
         run: docker image prune -f
