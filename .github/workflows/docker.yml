@@ -41,6 +41,6 @@ jobs:
       - name: Remove image
         run: docker image rm ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest --force
       - name: Prune containers
-        run: docker container prune -a -f
+        run: docker container prune -f
       - name: Prune images
-        run: docker image prune -f
+        run: docker image prune -a -f
