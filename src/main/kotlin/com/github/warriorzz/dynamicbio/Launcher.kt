@@ -5,8 +5,8 @@ import com.github.warriorzz.dynamicbio.utils.BiographyProvider
 import com.github.warriorzz.dynamicbio.utils.OAuth
 
 suspend fun main() {
-    OAuth.invoke()
-    Database.invoke()
-    BiographyProvider.invoke()
+    OAuth()
+    Database()
+    BiographyProvider()
     DynamicBio()
 }

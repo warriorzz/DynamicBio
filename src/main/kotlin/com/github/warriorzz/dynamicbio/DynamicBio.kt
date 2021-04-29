@@ -16,7 +16,7 @@ import mu.KotlinLogging
 object DynamicBio {
 
     private var initialized = false
-    val logger = KotlinLogging.logger {}
+    private val logger = KotlinLogging.logger {}
 
     private val httpClient = HttpClient(OkHttp) {
         install(JsonFeature) {
@@ -57,8 +57,7 @@ object DynamicBio {
                     ).authenticationHeaders()
             )
         }
-        logger.error { "Bio successfully updated!" }
-
+        logger.info { "Bio successfully updated!" }
         // maybe do some stuff with response
     }
 }
