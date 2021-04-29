@@ -58,7 +58,6 @@ object DynamicBio {
             )
         }
         logger.info { "Bio successfully updated!" }
-
         // maybe do some stuff with response
     }
 }

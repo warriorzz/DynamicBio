@@ -9,22 +9,21 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven("https://dl.bintray.com/insanusmokrassar/InsanusMokrassar")
-    maven("https://dl.bintray.com/korlibs/korlibs")
 }
 
 dependencies {
     implementation("io.github.cdimascio", "dotenv-kotlin", "6.2.2")
-    implementation("io.ktor", "ktor-client-okhttp", "1.5.2")
-    implementation("io.ktor", "ktor-client-serialization", "1.5.2")
+    implementation(platform("io.ktor:ktor-bom:1.5.3"))
+    implementation("io.ktor", "ktor-client-okhttp")
+    implementation("io.ktor", "ktor-client-serialization")
 
-    implementation("dev.inmo", "krontab", "0.5.0")
+    implementation("dev.inmo", "krontab", "0.5.2")
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.4.3")
-    api("org.litote.kmongo", "kmongo-coroutine-serialization", "4.2.3")
-    implementation("io.github.microutils", "kotlin-logging", "1.12.5")
-    implementation("org.slf4j:slf4j-jdk14:1.7.9")
+    implementation("org.litote.kmongo", "kmongo-coroutine-serialization", "4.2.3")
+    implementation("io.github.microutils", "kotlin-logging", "2.0.6")
+    implementation("org.slf4j", "slf4j-api", "1.7.30")
 
-    val junitVersion = "5.6.0"
+    val junitVersion = "5.7.1"
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion)
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion)
