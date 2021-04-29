@@ -5,7 +5,7 @@ import com.github.warriorzz.dynamicbio.model.Biography
 
 object BiographyProvider {
 
-    private val list = arrayListOf(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+    private val list = mutableListOf(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
     var lastBiography = list.random()
 
     suspend operator fun invoke() {
