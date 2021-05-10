@@ -1,0 +1,39 @@
+version: '3'
+services:
+  backend:
+    env_file:
+      - .env
+    image: warriorzz/dynamicbio
+    restart: unless-stopped
+    container_name: dynamicbio
+    depends_on:
+      - mongo
+    environment:
+      - DATABASE_HOST=localhost:27017
+      - DATABASE_USER=
+      - DATABASE_PASSWORD=
+      - DATABASE_NAME=
+      - OAUTH_ACCESS_TOKEN=
+      - OAUTH_ACCESS_SECRET=
+      - CONSUMER_ACCESS_TOKEN=
+      - CONSUMER_ACCESS_SECRET=
+    networks:
+      - app
+
+  mongo:
+    image: mongo
+    container_name: dynamicbio_database
+    environment:
+      - MONGO_INITDB_DATABASE=database
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - dynamic_bio:/data/db
+    networks:
+      - app
+
+volumes:
+  dynamic_bio:
+
+networks:
+  app:

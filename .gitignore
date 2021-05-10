@@ -7,3 +7,5 @@ build/
 
 # more stuff
 .env
+init-mongo.js
+docker-compose.yml
