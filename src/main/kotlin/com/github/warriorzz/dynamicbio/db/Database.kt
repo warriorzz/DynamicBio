@@ -1,6 +1,7 @@
 package com.github.warriorzz.dynamicbio.db
 
 import com.github.warriorzz.dynamicbio.config.Config
+import com.github.warriorzz.dynamicbio.config.Environment
 import com.github.warriorzz.dynamicbio.model.Biography
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
@@ -25,7 +26,7 @@ object Database {
         client = KMongo.createClient(
             MongoClientSettings.builder()
                 .uuidRepresentation(UuidRepresentation.STANDARD)
-                .applyConnectionString(ConnectionString("mongodb://${Config.DATABASE_USER}:${Config.DATABASE_PASSWORD}@${Config.DATABASE_HOST}/${Config.DATABASE_NAME}?retryWrites=true&w=majority"))
+                .applyConnectionString(ConnectionString(getConnectionString()))
                 .build()
         ).coroutine
 
@@ -36,6 +37,13 @@ object Database {
                 biographyCollection.insertOne(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
             }
         }
+    }
+
+    private fun getConnectionString() : String {
+        val default = "${Config.DATABASE_USER}:${Config.DATABASE_PASSWORD}@${Config.DATABASE_HOST}/${Config.DATABASE_NAME}?retryWrites=true&w=majority"
+        return if(Config.ENVIRONMENT == Environment.DEVELOPMENT)
+            "mongodb+srv://$default"
+        else "mongodb://$default"
     }
 }
 

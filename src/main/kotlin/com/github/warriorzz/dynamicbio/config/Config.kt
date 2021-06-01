@@ -12,6 +12,9 @@ object Config {
     val DATABASE_NAME = byEnv("DATABASE_NAME")
     val DATABASE_USER = byEnv("DATABASE_USER")
     val DATABASE_PASSWORD = byEnv("DATABASE_PASSWORD")
+    val ENVIRONMENT = byEnv("ENVIRONMENT", "PRODUCTION").let {
+        if (it == Environment.DEVELOPMENT.name) Environment.DEVELOPMENT else Environment.PRODUCTION
+    }
 }
 
 private val dotenv = dotenv {
@@ -24,4 +27,8 @@ fun byEnv(property: String, default: String = ""): String {
         return dotenv[property]
     }
     return default
+}
+
+enum class Environment {
+    PRODUCTION, DEVELOPMENT;
 }
