@@ -9,10 +9,10 @@ object Config {
     val OAUTH_ACCESS_SECRET by environment
     val CONSUMER_ACCESS_TOKEN by environment
     val CONSUMER_ACCESS_SECRET by environment
-    val DATABASE_HOST by environment
+
+    val DATABASE_CONNECTION_STRING by environment
     val DATABASE_NAME by environment
-    val DATABASE_USER by environment
-    val DATABASE_PASSWORD by environment
+
     val ENVIRONMENT by getEnv(default = Environment.PRODUCTION.name) { Environment.valueOf(it) }
 
 }
