@@ -21,7 +21,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.5.0")
     implementation("org.litote.kmongo", "kmongo-coroutine-serialization", "4.2.7")
     implementation("io.github.microutils", "kotlin-logging-jvm", "2.0.6")
-    implementation("org.slf4j", "slf4j-api", "1.7.30")
+    implementation("org.slf4j", "slf4j-simple", "1.7.29")
 
     val junitVersion = "5.7.2"
     testImplementation(kotlin("test-junit5"))
