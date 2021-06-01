@@ -39,4 +39,4 @@ object Database {
     }
 }
 
-val databaseScope = CoroutineScope(Dispatchers.IO)
+val databaseScope = CoroutineScope(Dispatchers.Default)
