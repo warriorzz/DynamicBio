@@ -18,7 +18,7 @@ object Database {
     private lateinit var client: CoroutineClient
     lateinit var database: CoroutineDatabase
         private set
-    lateinit var biographieCollection: CoroutineCollection<Biography>
+    lateinit var biographyCollection: CoroutineCollection<Biography>
         private set
 
     operator fun invoke() {
@@ -30,10 +30,10 @@ object Database {
         ).coroutine
 
         database = client.getDatabase(Config.DATABASE_NAME)
-        biographieCollection = database.getCollection()
+        biographyCollection = database.getCollection()
         databaseScope.launch {
-            if (biographieCollection.countDocuments() == 0L) {
-                biographieCollection.insertOne(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+            if (biographyCollection.countDocuments() == 0L) {
+                biographyCollection.insertOne(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
             }
         }
     }
