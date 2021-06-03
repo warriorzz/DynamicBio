@@ -1,5 +1,6 @@
 package com.github.warriorzz.dynamicbio
 
+import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.model.TwitterResponse
 import com.github.warriorzz.dynamicbio.utils.BiographyProvider
 import com.github.warriorzz.dynamicbio.utils.OAuth
@@ -29,7 +30,7 @@ object DynamicBio {
 
     suspend operator fun invoke() {
         require(!initialized) { "Cannot initialize DynamicBio twice!" }
-        doInfinity("0 /15 * * *") {
+        doInfinity("0 /${Config.INTERVAL} * * *") {
             updateBio()
         }
     }
