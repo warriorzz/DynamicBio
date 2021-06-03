@@ -4,7 +4,6 @@ import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.model.TwitterResponse
 import com.github.warriorzz.dynamicbio.utils.BiographyProvider
 import com.github.warriorzz.dynamicbio.utils.OAuth
-import dev.inmo.krontab.builder.buildSchedule
 import dev.inmo.krontab.doInfinity
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*

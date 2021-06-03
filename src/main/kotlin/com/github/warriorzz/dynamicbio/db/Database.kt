@@ -33,7 +33,13 @@ object Database {
         biographyCollection = database.getCollection()
         databaseScope.launch {
             if (biographyCollection.countDocuments() == 0L) {
-                biographyCollection.insertOne(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+                biographyCollection.insertOne(
+                    Biography(
+                        "written by Leon",
+                        "github.com/warriorzz/dynamicbio",
+                        "Twitter"
+                    )
+                )
             }
         }
     }
