@@ -18,25 +18,31 @@ object Database {
     private lateinit var client: CoroutineClient
     lateinit var database: CoroutineDatabase
         private set
-    lateinit var biographieCollection: CoroutineCollection<Biography>
+    lateinit var biographyCollection: CoroutineCollection<Biography>
         private set
 
     operator fun invoke() {
         client = KMongo.createClient(
             MongoClientSettings.builder()
                 .uuidRepresentation(UuidRepresentation.STANDARD)
-                .applyConnectionString(ConnectionString("mongodb://${Config.DATABASE_USER}:${Config.DATABASE_PASSWORD}@${Config.DATABASE_HOST}/${Config.DATABASE_NAME}?retryWrites=true&w=majority"))
+                .applyConnectionString(ConnectionString(Config.DATABASE_CONNECTION_STRING))
                 .build()
         ).coroutine
 
         database = client.getDatabase(Config.DATABASE_NAME)
-        biographieCollection = database.getCollection()
+        biographyCollection = database.getCollection()
         databaseScope.launch {
-            if (biographieCollection.countDocuments() == 0L) {
-                biographieCollection.insertOne(Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"))
+            if (biographyCollection.countDocuments() == 0L) {
+                biographyCollection.insertOne(
+                    Biography(
+                        "written by Leon",
+                        "github.com/warriorzz/dynamicbio",
+                        "Twitter"
+                    )
+                )
             }
         }
     }
 }
 
-val databaseScope = CoroutineScope(Dispatchers.IO)
+val databaseScope = CoroutineScope(Dispatchers.Default)

@@ -18,7 +18,7 @@ object OAuth {
     private var signingKey =
         "${Config.CONSUMER_ACCESS_SECRET.percentEncode()}&${Config.OAUTH_ACCESS_SECRET.percentEncode()}"
 
-    operator fun invoke() {
+    private fun setDefaultParameters() {
         parameters["oauth_version"] = "1.0"
         parameters["oauth_signature_method"] = "HMAC-SHA1"
         parameters["oauth_consumer_key"] = Config.CONSUMER_ACCESS_TOKEN
@@ -26,6 +26,7 @@ object OAuth {
     }
 
     fun withParameters(parameters: Map<String, String>): OAuth {
+        this.parameters.clear()
         parameters.forEach { (key, value) ->
             this.parameters[key] = value
         }
@@ -43,6 +44,7 @@ object OAuth {
     }
 
     fun authenticationHeaders(): String {
+        setDefaultParameters()
         parameters["oauth_timestamp"] = Instant.now().epochSecond.toString()
         parameters["oauth_nonce"] = randomString()
         parameters["oauth_signature"] = getSignature() ?: return ""
