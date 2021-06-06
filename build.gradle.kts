@@ -10,6 +10,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     maven("https://schlaubi.jfrog.io/artifactory/envconf/")
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 dependencies {
@@ -17,6 +18,7 @@ dependencies {
     implementation(platform("io.ktor:ktor-bom:1.6.0"))
     implementation("io.ktor", "ktor-client-okhttp")
     implementation("io.ktor", "ktor-client-serialization")
+    implementation("dev.kord", "kord-core", "0.7.x-SNAPSHOT")
 
     implementation("dev.inmo", "krontab", "0.6.0")
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.5.0")
@@ -33,7 +35,7 @@ dependencies {
 tasks {
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
             freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
         }
     }
