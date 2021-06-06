@@ -9,15 +9,19 @@ object BiographyProvider {
         Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter")
     )
     var lastBiography = list.random()
+    var initialized = false
 
     suspend operator fun invoke() {
         Database.biographyCollection.find().consumeEach {
             list.add(it)
         }
+        initialized = true
     }
 
     fun getNextBio(): Biography {
-        lastBiography = list.filter { it != lastBiography }.random()
+        if (initialized) {
+            lastBiography = list.filter { it != lastBiography }.random()
+        }
         return lastBiography
     }
 }
