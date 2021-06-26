@@ -18,7 +18,7 @@ object DynamicBio {
     private var initialized = false
     private val logger = KotlinLogging.logger {}
 
-    private val httpClient = HttpClient(OkHttp) {
+    internal val httpClient = HttpClient(OkHttp) {
         install(JsonFeature) {
             val json = kotlinx.serialization.json.Json {
                 ignoreUnknownKeys = true
