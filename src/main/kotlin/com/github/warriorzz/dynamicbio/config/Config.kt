@@ -18,6 +18,8 @@ object Config {
 
     val ENABLE_DISCORD by getEnv(default = false) { it.toBoolean() }
     val DISCORD_API_URL by getEnv(default = "")
+    val DISCORD_GUILD_ID by environment
+    val DISCORD_USER_ID by environment
 }
 
 enum class Environment {

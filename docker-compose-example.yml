@@ -1,6 +1,6 @@
 version: '3'
 services:
-  backend:
+  dynamicbio:
     env_file:
       - .env
     image: warriorzz/dynamicbio
@@ -15,9 +15,22 @@ services:
       - OAUTH_ACCESS_SECRET=
       - CONSUMER_ACCESS_TOKEN=
       - CONSUMER_ACCESS_SECRET=
+      - DISCORD_API_URL=
+      - ENABLE_DISCORD=true
+      - DISCORD_GUILD_ID=
+      - DISCORD_USER_ID=
     networks:
       - app
 
+  backend:
+    build:
+      dockerfile: backend.Dockerfile
+    networks:
+      - app
+    environment:
+      - DISCORD_TOKEN=
+    ports:
+      - 80:80
   mongo:
     image: mongo
     container_name: dynamicbio_database
