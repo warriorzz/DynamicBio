@@ -30,9 +30,12 @@ object DiscordBot {
         val presence = kord.getGuild(guildId)?.getMember(userId)?.getPresence() ?: return ""
         return presence.activities.filter {
             it.name != "null" && it.applicationId != null
-        }.map {
-            it.type.getActivityString() + it.name
-        }.first()
+        }.let {
+            if (it.isEmpty()) ""
+            else it.map { activity ->
+                activity.type.getActivityString() + activity.name
+            }.first()
+        }
     }
 }
 
