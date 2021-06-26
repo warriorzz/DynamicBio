@@ -18,7 +18,6 @@ dependencies {
     implementation(platform("io.ktor:ktor-bom:1.6.0"))
     implementation("io.ktor", "ktor-client-okhttp")
     implementation("io.ktor", "ktor-client-serialization")
-    implementation("dev.kord", "kord-core", "0.7.x-SNAPSHOT")
 
     implementation("dev.inmo", "krontab", "0.6.0")
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.5.0")
