@@ -22,12 +22,17 @@ object DiscordBot {
         kord = Kord(Config.DISCORD_TOKEN) {
             intents += Intent.GuildPresences
         }
+        logger.info { "Started discord bot!" }
         kord.login()
     }
 
-    suspend fun getCurrentActivity(guildId: Snowflake, memberId: Snowflake) : String {
-        val presence = kord.getGuild(guildId)?.getMember(memberId)?.getPresence() ?: return ""
-        return presence.activities[0].type.getActivityString() + presence.activities[0].name
+    suspend fun getCurrentActivity(guildId: Snowflake, userId: Snowflake) : String {
+        val presence = kord.getGuild(guildId)?.getMember(userId)?.getPresence() ?: return ""
+        return presence.activities.filter {
+            it.name != "null" && it.applicationId != null
+        }.map {
+            it.type.getActivityString() + it.name
+        }.first()
     }
 }
 

@@ -12,4 +12,4 @@ WORKDIR /user/app
 
 COPY --from=builder backend/build/install/backend ./
 
-ENTRYPOINT ["/user/app/bin/DynamicBio"]
+ENTRYPOINT ["/user/app/bin/backend"]

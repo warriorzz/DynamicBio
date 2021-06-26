@@ -18,7 +18,7 @@ dependencies {
     implementation("io.ktor", "ktor-server-core")
     implementation("io.ktor", "ktor-server-cio")
     implementation("io.ktor", "ktor-serialization")
-    implementation("dev.kord", "kord-core", "0.7.0-RC3")
+    implementation("dev.kord", "kord-core", "0.7.1")
 
     implementation("io.github.microutils", "kotlin-logging-jvm", "2.0.6")
     implementation("org.slf4j", "slf4j-simple", "1.7.29")
