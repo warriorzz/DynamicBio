@@ -3,7 +3,13 @@ package com.github.warriorzz.backend.core
 import com.github.warriorzz.backend.config.Config
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import org.bson.UuidRepresentation
 import org.litote.kmongo.coroutine.CoroutineClient
 import org.litote.kmongo.coroutine.CoroutineCollection
@@ -32,4 +38,16 @@ object Database {
 }
 
 @Serializable
-data class UserData(val discordId: Long, val hash: String)
+data class UserData(val discordId: Long, @Serializable(with = ByteArraySerializer::class) val hash: ByteArray)
+
+object ByteArraySerializer : KSerializer<ByteArray> {
+    override fun deserialize(decoder: Decoder): ByteArray {
+        return decoder.decodeString().toByteArray(Charsets.UTF_8)
+    }
+
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ByteArrayAsString", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: ByteArray) {
+        encoder.encodeString(value.decodeToString())
+    }
+}

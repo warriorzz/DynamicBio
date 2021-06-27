@@ -2,7 +2,6 @@ package com.github.warriorzz.backend.server
 
 import com.github.warriorzz.backend.core.Auth
 import com.github.warriorzz.backend.discord.DiscordBot
-import de.nycode.bcrypt.hash
 import dev.kord.common.entity.Snowflake
 import io.ktor.application.*
 import io.ktor.features.*
