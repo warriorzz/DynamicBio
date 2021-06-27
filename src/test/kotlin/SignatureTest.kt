@@ -10,7 +10,6 @@ object SignatureTest {
     fun `Test Signature`() {
         val expected = "NfqsB0u3ssrm%2Fv2Ly6UEuzP4SYg%3D"
 
-        OAuth()
         OAuth.withMethod(HttpMethod.Post).withParameters(
             mapOf(
                 "oauth_timestamp" to (1617827407.toString()),

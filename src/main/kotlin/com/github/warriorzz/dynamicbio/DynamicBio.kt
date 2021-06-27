@@ -4,6 +4,7 @@ import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.model.TwitterResponse
 import com.github.warriorzz.dynamicbio.utils.BiographyProvider
 import com.github.warriorzz.dynamicbio.utils.OAuth
+import dev.inmo.krontab.builder.buildSchedule
 import dev.inmo.krontab.doInfinity
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
@@ -18,7 +19,7 @@ object DynamicBio {
     private var initialized = false
     private val logger = KotlinLogging.logger {}
 
-    private val httpClient = HttpClient(OkHttp) {
+    internal val httpClient = HttpClient(OkHttp) {
         install(JsonFeature) {
             val json = kotlinx.serialization.json.Json {
                 ignoreUnknownKeys = true
@@ -35,22 +36,22 @@ object DynamicBio {
     }
 
     private suspend fun updateBio() {
-        val bio = BiographyProvider.getNextBio()
+        val (description, url, location) = BiographyProvider.getNextBio()
 
         logger.info { "Updating bio..." }
         httpClient.post<TwitterResponse>("https://api.twitter.com/1.1/account/update_profile.json") {
-            parameter("description", bio.description)
-            parameter("url", bio.url)
-            parameter("location", bio.location)
+            parameter("description", description)
+            parameter("url", url)
+            parameter("location", location)
             headers.clear()
             header(
                 "Authorization",
                 OAuth.withUrl("https://api.twitter.com/1.1/account/update_profile.json").withMethod(HttpMethod.Post)
                     .withParameters(
                         mapOf(
-                            "description" to bio.description,
-                            "url" to bio.url,
-                            "location" to bio.location
+                            "description" to description,
+                            "url" to url,
+                            "location" to location
                         )
                     ).authenticationHeaders()
             )

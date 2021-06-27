@@ -4,12 +4,12 @@ COPY . .
 
 RUN chmod +x ./gradlew
 
-RUN ./gradlew --no-daemon installDist
+RUN ./gradlew --no-daemon :backend:installDist
 
 FROM adoptopenjdk/openjdk16:alpine
 
 WORKDIR /user/app
 
-COPY --from=builder build/install/DynamicBio ./
+COPY --from=builder backend/build/install/backend ./
 
-ENTRYPOINT ["/user/app/bin/DynamicBio"]
+ENTRYPOINT ["/user/app/bin/backend"]

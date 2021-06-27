@@ -13,6 +13,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build & Tag
         run:  docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:latest .
+      - name: Build & Tag backend
+        run: docker build -f backend.Dockerfile -t ${{ secrets.DOCKER_USER }}/dynamicbio:backend-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:backend-latest .
       - name: Login
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -22,13 +24,19 @@ jobs:
         run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:latest
       - name: Push specific tag
         run:  docker push ${{ secrets.DOCKER_USER }}/dynamicbio:tag-"$GITHUB_SHA"
+      - name: Push latest backend
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:backend-latest
+      - name: Push specific tag backend
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:backend-tag-"$GITHUB_SHA"
   build-arm64:
     name: Build & Publish arm64 Docker image
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - name: Build & Tag
-        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest .
+        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest -f arm64.Dockerfile .
+      - name: Build & Tag backend
+        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-latest -f backend-arm64.Dockerfile .
       - name: Login
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -38,6 +46,10 @@ jobs:
         run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest
       - name: Push specific tag
         run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA"
+      - name: Push latest backend
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-latest
+      - name: Push specific tag backend
+        run: docker push ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-tag-"$GITHUB_SHA"
       - name: Remove image
         run: docker image rm ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest --force
       - name: Prune containers
