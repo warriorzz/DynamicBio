@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk15 as builder
+FROM adoptopenjdk/openjdk16 as builder
 
 COPY . .
 
@@ -6,7 +6,7 @@ RUN chmod +x ./gradlew
 
 RUN ./gradlew --no-daemon installDist
 
-FROM adoptopenjdk/openjdk15
+FROM adoptopenjdk/openjdk16
 
 WORKDIR /user/app
 

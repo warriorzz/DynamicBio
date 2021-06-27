@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Biography(
-    val description: String,
+    var description: String,
     val url: String = BiographyProvider.lastBiography.url,
     val location: String = BiographyProvider.lastBiography.location,
 )
