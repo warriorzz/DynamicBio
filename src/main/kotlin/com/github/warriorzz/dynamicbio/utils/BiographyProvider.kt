@@ -9,7 +9,8 @@ object BiographyProvider {
     private val list = mutableSetOf(
         Biography("written by Leon", "github.com/warriorzz/dynamicbio", "Twitter"),
     )
-    lateinit var lastBiography: Biography
+    var lastBiography = list.random()
+    var initialized = false
 
     private val moduleList = mutableSetOf(DiscordModule)
     private const val SEPARATOR = " - "
@@ -19,6 +20,7 @@ object BiographyProvider {
             list.add(it)
             lastBiography = it
         }
+        initialized = true
     }
 
     suspend fun getNextBio(): Triple<String, String, String> {
