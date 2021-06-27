@@ -26,7 +26,7 @@ object BiographyProvider {
             if (list.size == 1) list.first()
             else list.filter { entry -> entry != lastBiography }.random()
         }
-        val descriptionString = lastBiography.description + SEPARATOR + moduleList.filter {
+        val moduleString = moduleList.filter {
             it.isEnabled()
         }.sorted().map {
             it.getModuleString()
@@ -34,6 +34,7 @@ object BiographyProvider {
             if (s == "") acc
             else "$acc$SEPARATOR$s"
         }
+        val descriptionString = lastBiography.description + if (moduleString.length != 0) SEPARATOR + moduleString else ""
         return Triple(descriptionString, lastBiography.url, lastBiography.location)
     }
 }
