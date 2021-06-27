@@ -23,6 +23,21 @@ services:
     networks:
       - app
 
+  backend:
+    container_name: dynamicbiobackend
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    networks:
+      - app
+    environment:
+      - DISCORD_TOKEN=
+      - DATABASE_NAME=database
+      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo/database?authSource=admin
+    depends_on:
+      - mongo
+    ports:
+      - 80:80
   mongo:
     image: mongo
     container_name: dynamicbio_database
