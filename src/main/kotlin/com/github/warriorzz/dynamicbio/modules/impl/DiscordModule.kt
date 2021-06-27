@@ -4,7 +4,6 @@ import com.github.warriorzz.dynamicbio.DynamicBio
 import com.github.warriorzz.dynamicbio.config.Config
 import com.github.warriorzz.dynamicbio.modules.BiographyModule
 import io.ktor.client.request.*
-import java.util.*
 
 object DiscordModule : BiographyModule {
     override suspend fun getModuleString(): String {
