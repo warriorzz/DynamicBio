@@ -30,11 +30,14 @@ object BiographyProvider {
         }
         val moduleString = moduleList.filter {
             it.isEnabled()
-        }.sorted().map {
-            it.getModuleString()
-        }.reduce { acc, s ->
-            if (s == "") acc
-            else "$acc$SEPARATOR$s"
+        }.let {
+            return@let if (it.isEmpty()) ""
+            else it.sorted().map { module ->
+                module.getModuleString()
+            }.reduce { acc, s ->
+                if (s == "") acc
+                else "$acc$SEPARATOR$s"
+            }
         }
         val descriptionString = lastBiography.description + if (moduleString.length != 0) SEPARATOR + moduleString else ""
         return Triple(descriptionString, lastBiography.url, lastBiography.location)
