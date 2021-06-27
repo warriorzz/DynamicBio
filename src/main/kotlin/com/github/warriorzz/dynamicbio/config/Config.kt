@@ -20,6 +20,7 @@ object Config {
     val DISCORD_API_URL by getEnv(default = "")
     val DISCORD_GUILD_ID by getEnv(default = "")
     val DISCORD_USER_ID by getEnv(default = "")
+    val DISCORD_SECRET by getEnv(default = "")
 }
 
 enum class Environment {

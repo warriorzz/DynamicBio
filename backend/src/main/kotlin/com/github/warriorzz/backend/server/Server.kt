@@ -1,6 +1,8 @@
 package com.github.warriorzz.backend.server
 
+import com.github.warriorzz.backend.core.Auth
 import com.github.warriorzz.backend.discord.DiscordBot
+import de.nycode.bcrypt.hash
 import dev.kord.common.entity.Snowflake
 import io.ktor.application.*
 import io.ktor.features.*
@@ -23,6 +25,10 @@ suspend fun startServer() = embeddedServer(CIO) {
                 return@get
             }
             logger.info { "Received request for userId = $userId and guildId = $guildId! ID: ${call.callId}" }
+            if (call.request.headers["Authorization"]?.let { it1 -> Auth.verifySecret(userId, it1) } != true) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@get
+            }
             call.respondText {
                 DiscordBot.getCurrentActivity(guildId = Snowflake(guildId), userId = Snowflake(userId))
             }

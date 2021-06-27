@@ -19,22 +19,10 @@ services:
       - ENABLE_DISCORD=true
       - DISCORD_GUILD_ID=
       - DISCORD_USER_ID=
+      - DISCORD_SECRET=
     networks:
       - app
 
-  backend:
-    container_name: dynamicbiobackend
-    build:
-      context: .
-      dockerfile: backend.Dockerfile
-    networks:
-      - app
-    environment:
-      - DISCORD_TOKEN=
-    depends_on:
-      - mongo
-    ports:
-      - 80:80
   mongo:
     image: mongo
     container_name: dynamicbio_database

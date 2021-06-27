@@ -1,9 +1,12 @@
 package com.github.warriorzz.backend.discord
 
 import com.github.warriorzz.backend.config.Config
+import com.github.warriorzz.backend.core.Auth
 import dev.kord.common.entity.ActivityType
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.Kord
+import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
 import mu.KotlinLogging
@@ -21,6 +24,12 @@ object DiscordBot {
         initialized = true
         kord = Kord(Config.DISCORD_TOKEN) {
             intents += Intent.GuildPresences
+        }
+        kord.on<MessageCreateEvent> {
+            if (this.guildId != null || !this.message.content.matches("^!(generate|update|secret)".toRegex())) return@on
+            this.message.author?.getDmChannel()?.createMessage("Your new secret is || ${this.message.author?.id?.value?.let {
+                Auth.getNewSecret(it)
+            }} ||.")
         }
         logger.info { "Started discord bot!" }
         kord.login()

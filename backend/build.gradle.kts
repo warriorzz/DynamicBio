@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
     application
+    kotlin("plugin.serialization")
 }
 
 group = "com.github.warriorzz"
@@ -19,7 +20,10 @@ dependencies {
     implementation("io.ktor", "ktor-server-cio")
     implementation("io.ktor", "ktor-serialization")
     implementation("dev.kord", "kord-core", "0.7.1")
+    implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", "1.5.0")
+    implementation("org.litote.kmongo", "kmongo-coroutine-serialization", "4.2.7")
 
+    implementation("de.nycode", "bcrypt","2.1.0")
     implementation("io.github.microutils", "kotlin-logging-jvm", "2.0.6")
     implementation("org.slf4j", "slf4j-simple", "1.7.29")
 }
