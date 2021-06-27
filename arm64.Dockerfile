@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk16:alpine as builder
+FROM adoptopenjdk/openjdk16 as builder
 
 COPY . .
 
@@ -6,7 +6,7 @@ RUN chmod +x ./gradlew
 
 RUN ./gradlew --no-daemon installDist
 
-FROM adoptopenjdk/openjdk16:alpine
+FROM adoptopenjdk/openjdk16
 
 WORKDIR /user/app
 

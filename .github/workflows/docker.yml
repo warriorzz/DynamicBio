@@ -34,9 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build & Tag
-        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest .
+        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-latest -f arm64.Dockerfile .
       - name: Build & Tag backend
-        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-latest .
+        run: docker build -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-tag-"$GITHUB_SHA" -t ${{ secrets.DOCKER_USER }}/dynamicbio:arm64-backend-latest -f backend-arm64.Dockerfile .
       - name: Login
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
