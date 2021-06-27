@@ -9,7 +9,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo/database?authSource=admin
+      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo
       - DATABASE_NAME=database
       - OAUTH_ACCESS_TOKEN=
       - OAUTH_ACCESS_SECRET=
@@ -33,7 +33,7 @@ services:
     environment:
       - DISCORD_TOKEN=
       - DATABASE_NAME=database
-      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo/database?authSource=admin
+      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo
     depends_on:
       - mongo
     ports:

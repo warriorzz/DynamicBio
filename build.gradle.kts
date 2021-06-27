@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.schlaubi", "envconf", "1.0")
+    implementation("dev.schlaubi", "envconf", "1.1")
     implementation(platform("io.ktor:ktor-bom:1.6.0"))
     implementation("io.ktor", "ktor-client-okhttp")
     implementation("io.ktor", "ktor-client-serialization")

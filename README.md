@@ -17,7 +17,7 @@ services:
     depends_on:
       - mongo
     environment:
-      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo/database?authSource=admin
+      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo
       - DATABASE_NAME=database
       - OAUTH_ACCESS_TOKEN= # Your twitter OAuth token (credentials for user access)
       - OAUTH_ACCESS_SECRET= # Your twitter OAuth secret (credentials for user access)
@@ -41,7 +41,7 @@ services:
     environment:
       - DISCORD_TOKEN= # Discord token for your bot
       - DATABASE_NAME=database
-      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo/database?authSource=admin
+      - DATABASE_CONNECTION_STRING=mongodb://root:root@mongo
     depends_on:
       - mongo
     ports:
